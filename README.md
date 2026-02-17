@@ -1,7 +1,7 @@
 # PROYECTO IA-BIG DATA
 
 ## 🎯 Objetivo
-Desarrollo de un modelo predictivo para controlar la congestión del tráfico en Madrid
+Desarrollo de un modelo predictivo para el control en congestión del tráfico en Madrid
 
 ## 👥 Miembros del Equipo
 * **Jokin** - Rol / GitHub
