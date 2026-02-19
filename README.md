@@ -1,4 +1,4 @@
-# PROYECTO IA-BIG DATA
+# PROYECTO SmartTrafficFlow AI
 
 ## 🎯 Objetivo
 Desarrollo de un modelo predictivo para el control de la congestión del tráfico en Madrid
