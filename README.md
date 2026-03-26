@@ -1,3 +1,5 @@
+[![CI — SmartTrafficFlow AI](https://github.com/fpeirop/proyecto-ia-bigdata/actions/workflows/ci.yml/badge.svg)](https://github.com/fpeirop/proyecto-ia-bigdata/actions/workflows/ci.yml)
+
 # SmartTrafficFlow AI 🚦
 
 > Sistema Predictivo de Congestión de Tráfico en Madrid mediante Big Data y Machine Learning
