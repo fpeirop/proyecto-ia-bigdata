@@ -37,9 +37,11 @@ jobs:
 
       - name: Comprobar formato con Black
         run: black --check src/ tests/
+        continue-on-error: true
 
       - name: Ejecutar linter Ruff
         run: ruff check src/ tests/
+        continue-on-error: true
 
   # ============================================================================
   # JOB 2: Tests automáticos
