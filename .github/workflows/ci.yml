@@ -8,36 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  # ============================================================================
-  # JOB 1: Calidad de código (lint + format check)
-  # ============================================================================
- lint:
-    name: Calidad de código
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout del código
-        uses: actions/checkout@v4
-
-      - name: Configurar Python 3.11
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-          cache: "pip"
-
-      - name: Instalar dependencias de desarrollo
-        run: |
-          pip install --upgrade pip
-          if [ -f environment/requirements-dev.txt ]; then pip install -r environment/requirements-dev.txt; fi
-
-      - name: Comprobar formato con Black
-        run: black --check .
-        continue-on-error: true
-
-  # ============================================================================
-  # JOB 2: Tests automáticos
-  # ============================================================================
- test:
+  test:
     name: Tests y Validación
     runs-on: ubuntu-latest
 
