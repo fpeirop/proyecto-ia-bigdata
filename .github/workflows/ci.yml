@@ -3,13 +3,14 @@ name: CI — SmartTrafficFlow AI
 on:
   push:
     branches:
+      - main
       - develop
       - "feature/**"
   pull_request:
     branches:
       - main
       - develop
-
+ workflow_dispatch:
 jobs:
   # ============================================================================
   # JOB 1: Calidad de código (lint + format check)
