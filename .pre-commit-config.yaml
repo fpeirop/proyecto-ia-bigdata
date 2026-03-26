@@ -1,0 +1,45 @@
+repos:
+  # ===========================================================================
+  # Hooks básicos de pre-commit
+  # ===========================================================================
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace        # Elimina espacios al final de línea
+      - id: end-of-file-fixer          # Asegura que los ficheros terminan con \n
+      - id: check-yaml                 # Valida sintaxis YAML
+      - id: check-toml                 # Valida sintaxis TOML
+      - id: check-json                 # Valida sintaxis JSON
+      - id: check-added-large-files    # Evita subir ficheros > 5MB por error
+        args: ['--maxkb=5000']
+      - id: check-merge-conflict       # Detecta marcadores de conflicto Git
+      - id: debug-statements           # Detecta print() y breakpoints olvidados
+      - id: no-commit-to-branch        # Bloquea commits directos a main/develop
+        args: ['--branch', 'main', '--branch', 'develop']
+
+  # ===========================================================================
+  # Black — Formateador automático de código Python
+  # ===========================================================================
+  - repo: https://github.com/psf/black
+    rev: 24.4.2
+    hooks:
+      - id: black
+        language_version: python3.11
+
+  # ===========================================================================
+  # Ruff — Linter ultrarrápido (detecta errores antes del commit)
+  # ===========================================================================
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.4.7
+    hooks:
+      - id: ruff
+        args: [--fix]
+
+  # ===========================================================================
+  # isort — Ordena los imports automáticamente
+  # ===========================================================================
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        args: ["--profile", "black"]
