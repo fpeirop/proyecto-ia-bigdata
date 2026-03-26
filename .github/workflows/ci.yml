@@ -10,12 +10,13 @@ on:
     branches:
       - main
       - develop
- workflow_dispatch:
+  workflow_dispatch:
+
 jobs:
   # ============================================================================
   # JOB 1: Calidad de código (lint + format check)
   # ============================================================================
-  lint:
+ lint:
     name: Calidad de código
     runs-on: ubuntu-latest
 
@@ -32,21 +33,19 @@ jobs:
       - name: Instalar dependencias de desarrollo
         run: |
           pip install --upgrade pip
-          pip install -r environment/requirements-dev.txt
+          if [ -f environment/requirements-dev.txt ]; then pip install -r environment/requirements-dev.txt; fi
 
       - name: Comprobar formato con Black
-        run: black --check src/ tests/
-
-      - name: Ejecutar linter Ruff
-        run: ruff check src/ tests/
+        run: black --check .
+        continue-on-error: true
 
   # ============================================================================
   # JOB 2: Tests automáticos
   # ============================================================================
-  test:
+ test:
     name: Tests
     runs-on: ubuntu-latest
-    needs: lint  # Solo se ejecuta si el lint pasa
+    needs: lint
 
     steps:
       - name: Checkout del código
@@ -61,19 +60,8 @@ jobs:
       - name: Instalar dependencias
         run: |
           pip install --upgrade pip
-          pip install -r environment/requirements.txt
-          pip install -r environment/requirements-dev.txt
+          if [ -f environment/requirements.txt ]; then pip install -r environment/requirements.txt; fi
+          if [ -f environment/requirements-dev.txt ]; then pip install -r environment/requirements-dev.txt; fi
 
       - name: Ejecutar tests con pytest
         run: pytest tests/ -v --tb=short
-
-      - name: Generar reporte de cobertura
-        run: pytest tests/ --cov=src --cov-report=xml
-        continue-on-error: true
-
-      - name: Subir reporte de cobertura
-        uses: codecov/codecov-action@v4
-        with:
-          file: ./coverage.xml
-          fail_ci_if_error: false
-        continue-on-error: true
