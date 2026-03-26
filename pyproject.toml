@@ -1,0 +1,99 @@
+[project]
+name = "smarttrafficflow-ai"
+version = "0.1.0"
+description = "Sistema Predictivo de Congestión de Tráfico en Madrid mediante Big Data y Machine Learning"
+authors = [
+    { name = "Jokin Mel" },
+    { name = "Donovan Alexis Yaguana" },
+    { name = "Francisco Peiró" },
+    { name = "Marcos Cobos" },
+]
+requires-python = ">=3.11"
+readme = "README.md"
+license = { text = "MIT" }
+
+[project.urls]
+Repository = "https://github.com/fpeirop/proyecto-ia-bigdata"
+
+# ==============================================================================
+# Black — Formateador de código
+# ==============================================================================
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.venv
+  | venv
+  | data
+  | docs
+)/
+'''
+
+# ==============================================================================
+# Ruff — Linter ultrarrápido (reemplaza flake8 + isort + pyupgrade)
+# ==============================================================================
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "N",   # pep8-naming
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+]
+ignore = [
+    "E501",  # line too long (lo gestiona black)
+    "B008",  # do not perform function calls in argument defaults
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101"]  # permite assert en tests
+
+# ==============================================================================
+# isort — Orden de imports
+# ==============================================================================
+[tool.isort]
+profile = "black"
+line_length = 100
+known_first_party = ["src"]
+
+# ==============================================================================
+# Pytest — Tests
+# ==============================================================================
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short"
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::FutureWarning",
+]
+
+# ==============================================================================
+# Coverage — Cobertura de tests
+# ==============================================================================
+[tool.coverage.run]
+source = ["src"]
+omit = [
+    "*/tests/*",
+    "*/venv/*",
+    "*/__init__.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if __name__ == .__main__.:",
+]
+show_missing = true
