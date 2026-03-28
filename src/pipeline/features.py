@@ -24,4 +24,4 @@ def aplicar_ingenieria(df):
         df[f'{col}_lag_2'] = df[col].shift(2)  # Hace 60 min
         df[f'{col}_media_3h'] = df[col].rolling(window=6).mean()
     
-    return df.dropna()
+    return df.dropna() 
