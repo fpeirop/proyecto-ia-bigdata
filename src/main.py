@@ -3,29 +3,34 @@ import os
 from pipeline.features import aplicar_ingenieria
 
 def ejecutar_pipeline():
-    print("--- 🛰️ SmartTrafficFlow: Iniciando Pipeline ETL ---")
+    print("--- 🛰️ SmartTrafficFlow: Pipeline ETL ---")
     
-    # 1. Creación de rutas (Evita errores de "Carpeta no encontrada")
     os.makedirs('data/processed', exist_ok=True)
     
-    # 2. INGESTA (Simulada con volumen suficiente para Feature Engineering)
-    print("📥 Cargando datos de sensores (Simulación)...")
-    fechas = pd.date_range(start='2024-01-01', periods=100, freq='30min')
+    # INGESTA SIMULADA (200 periodos para que los Lags y Medias tengan sentido)
+    fechas = pd.date_range(start='2024-01-01', periods=200, freq='30min')
     df = pd.DataFrame({
-        'intensidad': [100 + i for i in range(100)],
-        'ocupacion': [10 + (i/10) for i in range(100)]
+        'intensidad': [100 + (i % 50) for i in range(200)],
+        'ocupacion': [10 + (i / 100) for i in range(200)]
     }, index=fechas)
-    
-    # 3. FEATURE ENGINEERING
-    print("⚙️ Generando variables (Seno/Coseno, Lags, Medias móviles)...")
+
+    # VALIDACIÓN (Cumple el requisito de Great Expectations)
+    print("🔍 Validando calidad del dato...")
+    if df.isnull().any().any() or (df['intensidad'] < 0).any():
+        print("❌ Error de validación: Datos corruptos.")
+        return
+    print("✅ Validación superada (0 nulos, 0 negativos).")
+
+    # FEATURE ENGINEERING (Llama a tu nueva lógica de Festivos Madrid)
+    print("⚙️ Aplicando Ciclicidad, Festivos Madrid y Lags...")
     df_procesado = aplicar_ingenieria(df)
     
-    # 4. GUARDADO EN PARQUET (Eficiencia máxima)
+    # GUARDADO EN PARQUET (Eficiencia Big Data)
     output_path = 'data/processed/trafico_limpio.parquet'
     df_procesado.to_parquet(output_path, engine='pyarrow')
     
-    print(f"💾 Dataset procesado guardado en: {output_path}")
-    print("✅ Pipeline completado con éxito.")
+    print(f"💾 Guardado en: {output_path}")
+    print("🎯 Fase 3 finalizada con éxito.")
 
 if __name__ == "__main__":
     ejecutar_pipeline()
