@@ -3,7 +3,7 @@ name: CI — SmartTrafficFlow AI
 on:
   push:
     branches:
-      - main       
+      - main
       - develop
       - "feature/**"
   pull_request:
@@ -30,10 +30,10 @@ jobs:
           python-version: "3.11"
           cache: "pip"
 
-      - name: Instalar dependencias de desarrollo
+      - name: Instalar dependencias
         run: |
           pip install --upgrade pip
-          pip install -r environment/requirements-dev.txt
+          pip install -r environment/requirements.txt
 
       - name: Comprobar formato con Black
         run: black --check src/ tests/
@@ -65,7 +65,6 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install -r environment/requirements.txt
-          pip install -r environment/requirements-dev.txt
 
       - name: Ejecutar tests con pytest
         run: pytest tests/ -v --tb=short

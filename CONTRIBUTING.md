@@ -17,7 +17,7 @@ venv\Scripts\activate          # Windows
 # source venv/bin/activate     # macOS / Linux
 
 # 3. Instala dependencias de desarrollo
-make install-dev
+make install
 
 # Esto instala también los hooks de pre-commit automáticamente.
 # A partir de ahora, antes de cada commit se ejecutará black y ruff.
