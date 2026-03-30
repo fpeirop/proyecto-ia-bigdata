@@ -46,7 +46,6 @@ proyecto-ia-bigdata/
 │
 ├── environment/
 │   ├── requirements.txt      # Dependencias de producción
-│   ├── requirements-dev.txt  # Dependencias de desarrollo
 │   └── environment.yml       # Entorno Conda (alternativa)
 │
 ├── src/
@@ -98,7 +97,6 @@ source venv/bin/activate
 
 ```bash
 pip install -r environment/requirements.txt
-pip install -r environment/requirements-dev.txt
 ```
 
 ### 4. Instalar hooks de pre-commit
@@ -198,4 +196,3 @@ El fichero `.env` **nunca** se sube al repositorio (está en `.gitignore`).
 ## Licencia
 
 MIT License — ver [LICENSE](LICENSE) para más detalles.
-

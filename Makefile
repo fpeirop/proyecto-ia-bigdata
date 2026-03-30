@@ -4,7 +4,7 @@
 # Uso: make <comando>
 # ==============================================================================
 
-.PHONY: help install install-dev lint format test etl train app clean
+.PHONY: help install install lint format test etl train app clean
 
 # Mostrar ayuda por defecto
 help:
@@ -14,7 +14,6 @@ help:
 	@echo ""
 	@echo "  Configuracion:"
 	@echo "    make install      Instala dependencias de produccion"
-	@echo "    make install-dev  Instala dependencias de desarrollo + pre-commit"
 	@echo ""
 	@echo "  Calidad de codigo:"
 	@echo "    make lint         Comprueba estilo con ruff y black"
@@ -43,9 +42,6 @@ help:
 install:
 	pip install --upgrade pip
 	pip install -r environment/requirements.txt
-
-install-dev: install
-	pip install -r environment/requirements-dev.txt
 	pre-commit install
 	@echo ""
 	@echo "  Entorno de desarrollo listo. Hooks de pre-commit instalados."
