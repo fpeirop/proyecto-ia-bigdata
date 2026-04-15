@@ -4,6 +4,7 @@ from datetime import datetime
 import pandas as pd
 import requests
 import os
+import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
 from streamlit_autorefresh import st_autorefresh
