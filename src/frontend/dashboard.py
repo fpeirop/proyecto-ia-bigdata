@@ -4,12 +4,11 @@ from datetime import datetime
 import pandas as pd
 import requests
 import os
+import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
 from streamlit_autorefresh import st_autorefresh
-from datetime import datetime
 from typing import Optional
-import random
 
 # ---------------------------------------------------------------------------
 # CONFIGURACIÓN GLOBAL
@@ -146,8 +145,17 @@ with st.sidebar:
 # 1. CARGA DE DATOS
 map_data_raw = fetch_api("map-status")
 
-if map_data_raw:
+if map_data_raw is None:
+    st.error("🚨 Error de comunicación con la API.")
+elif isinstance(map_data_raw, list) and len(map_data_raw) == 0:
+    st.info("📭 No hay datos disponibles para mostrar.")
+else:
     df_map = pd.DataFrame(map_data_raw)
+
+    if df_map.empty:
+        st.info("📭 No hay datos válidos para mostrar.")
+        st.stop()
+
     df_map["name"] = df_map["name"].astype(str)
     df_filtered = df_map[df_map["status"].isin(filtro_estado) & (df_map["traffic_intensity"] >= min_intensidad)]
 
@@ -428,6 +436,3 @@ if map_data_raw:
             
             st.write(f"**Carga de la vía ({ocupacion}% de capacidad teórica)**")
             st.progress(ocupacion / 100)
-
-else:
-    st.error("🚨 Error de comunicación con la API.")

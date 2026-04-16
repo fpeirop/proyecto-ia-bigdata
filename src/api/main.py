@@ -99,3 +99,10 @@ def get_map_status():
     latest['status'] = latest['traffic_intensity'].apply(get_traffic_status)
     
     return latest.to_dict(orient="records")
+
+@app.get("/debug-files")
+def debug_files():
+    return {
+        "exists": DATA_PATH.exists(),
+        "path": str(DATA_PATH),
+    }
